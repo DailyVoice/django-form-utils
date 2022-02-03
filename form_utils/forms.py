@@ -15,6 +15,7 @@ except ImportError: # Django < 1.9 compatibility
     from django.forms.util import flatatt, ErrorDict
 import six
 from django.utils.safestring import mark_safe
+from django.forms import BoundField
 
 
 def with_metaclass(meta, *bases):
@@ -92,7 +93,7 @@ class FieldsetCollection(object):
             except KeyError:
                 message = "Fieldset definition must include 'fields' option."
                 raise ValueError(message)
-            boundfields = [forms.forms.BoundField(self.form,
+            boundfields = [BoundField(self.form,
                                                   self.form.fields[n], n)
                            for n in field_names]
             self._cached_fieldsets.append(Fieldset(self.form, name,
